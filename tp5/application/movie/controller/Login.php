@@ -38,4 +38,19 @@ class login extends Controller
             return view();
         }
     }
+    public function logincheack($account,$password)
+    {
+            $psw = md5($password);
+            $sql = Db::query('select password from user where name="' . $account . '"');
+            if ($sql == null) {
+                return "账号不存在";
+            } else {
+                $pswcheck = $sql[0]["password"];
+                if ($psw == $pswcheck) {
+                    return true;
+                } else {
+                    return "密码不对";
+                }
+            }
+    }
 }
